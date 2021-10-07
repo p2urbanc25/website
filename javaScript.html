@@ -21,41 +21,47 @@ function guessing()
 	
 	*/
 	var usersGuess = -1;
-	var numOfGuesses = 0;
+	var numOfGuesses = 1;
 	var rand = Math.random()*10
 	rand = rand + 1;
 	rand = parseInt(rand);
-
 	
 	usersGuess = prompt("Guess A Number 1-10");
-	
-	while( usersGuess != rand ) 	
+
+	while( usersGuess != rand ) 	// Loop while wrong
 	{ 
-		if (usersGuess < rand) //too low
+		if(usersGuess == ""  ||  usersGuess == null)
 		{
-			alert("Your Guess Is Too Low!")
-			numOfGuesses = numOfGuesses + 1;
+			alert("Bruh. You didn't type anything.");
 		}
-		else if (usersGuess > rand) //too high
+		else
 		{
-			alert("Your Guess Is Too High!")
-			numOfGuesses = numOfGuesses + 1;
+			if (usersGuess < rand) //too low
+			{
+				alert("Your Guess Is Too Low!")
+				
+			}
+			else if (usersGuess > rand) //too high
+			{
+				alert("Your Guess Is Too High!")
+				
+			}
 		}
 		
 		usersGuess = prompt("Guess Again!");
+		numOfGuesses = numOfGuesses + 1;
 	}
-	while (usersGuess == rand)
+	// Usersguess equals rand
+	
+	if (numOfGuesses == 1) 
 	{
-	numOfGuesses = numOfGuesses + 1;
-	if (numOfGuesses < 2) 
-	{
-	alert("Good Job! First Try!");
+		alert("Good Job! First Try!");
 	}
-	else if (numOfGuess < 1)
+	else 
 	{
 	alert ("Good Job! It Took You " + numOfGuesses + " Tries!");
 	}
-	}
+	
 }
 function greeting() 
 {
