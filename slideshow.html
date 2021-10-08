@@ -1,0 +1,86 @@
+<html>
+<head>
+<script language="JavaScript">
+
+var clipLength = [ 16, 17, 6, 5, 13, 6 ];
+var picList = [ "images/slideshow/slide1.jpg",
+				"images/slideshow/slide2.jpg", 
+				"images/slideshow/slide3.jpg", 
+				"images/slideshow/slide4.jpg", 
+				"images/slideshow/slide5.jpg",
+				"images/slideshow/slide6.jpg" ]
+				
+var clipList = ["sounds/3point.mp3", 
+				"sounds/corner.mp3", 
+				"sounds/dirk.mp3", 
+				"sounds/doncicdagger.mp3", 
+				"sounds/donciii.mp3", 
+				"sounds/lebronluka.mp3" ]
+var number = 0;
+var timer;
+var startTimer = false;
+var autoStart = false;
+function next()
+{
+	clicky();
+	document.getElementById("display").src = picList[number];
+	document.getElementById("player").src = clipList[number];
+	document.getElementById("player").play();
+}
+function run()
+{
+	if (autoStart == false)
+	{
+		autoStart = true;
+		document.getElementById("runButton").value = "Pause"
+	}
+	else
+	{
+	autoStart = false;
+	document.getElementById("runButton").value = "Run Slideshow"
+	}
+	autoRun();
+}
+function autoRun()
+{
+	if(autoStart == true)
+	{
+		next();
+		timer = setTimeout("autoRun()", clipLength[number]*1000);
+		 
+	}
+	
+	else
+	{
+		clearTimeout(timer);
+	}
+} 
+function clicky()
+{
+if( number == picList.length-1) 
+	{ 
+		number = 0;
+	}
+	else
+	{
+		number = number + 1;
+	}
+}
+</script>
+</head>
+<body background="images/bkg2.gif">
+<center>
+<h1> Luka Dončić </h1>
+
+Click here <a href="index.html"> To Return To My Home Page. </a>
+<br/><br/>
+<input type="button" value="Next Picture" onclick="next()"/>
+<input type="button" value="Run Slideshow" onclick="run()" id="runButton"/>
+<br/> </br>
+
+<img src= "images/slideshow/slide1.jpg" id="display"/>
+<audio id = "player"></audio>
+</center>
+
+</body>
+</html>
