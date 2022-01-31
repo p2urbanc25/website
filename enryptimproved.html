@@ -5,60 +5,62 @@
 	var alpha = [ "a", 
 	              "b",  
 	              "c",  
-	              "d",
-				  "e",
-				  "f",
+	              "d",  
+	              "e",  
+	              "f",  
 				  "g",
-				  "h",
-				  "i",
-				  "j",
-				  "k",
-				  "l",
-				  "m",
-				  "n",
-				  "o",
-				  "p",
-				  "q",
-				  "r",
-				  "s",
-				  "t",
-				  "u",
-				  "v",
-				  "w",
-				  "x",
-				  "y",
-				  "z",
-				  " "
-				];
-	var scrambled = [ "m", 
-	              "n",   
-	              "b",
-				  "v",
-				  "c",
-				  "x",
-				  "z",
-				  "l",
-				  "k",
-				  "j",
-				  "h",
-				  "g",
-				  "f",
-				  "d",
-				  "s",
-				  "a",
-				  "p",
-				  "o",
-				  "i",
-				  "u",
-				  "y",
-				  "t",
-				  "r",
-				  "e",
-				  "w",
-				  "q",
-				  " "
+	              "h", 
+	              "i",  
+	              "j",  
+	              "k",  
+	              "l",  
+	              "m",  
+	              "n",  
+	              "o",  
+	              "p",  
+	              "q",  
+	              "r",  
+	              "s",  
+	              "t",  
+	              "u",  
+	              "v",  
+	              "w",  
+	              "x",  
+	              "y",  
+	              "z", 
+	              " "
 				];
 				
+	var scrambled = [ 
+	              "l",
+				  "d",
+				  "r",
+				  "i",
+				  "b",
+				  "s",
+				  "f",
+				  "n",
+				  "t",
+				  "a",
+				  "p",
+				  "u",
+				  "h",
+				  "x",
+				  "w",
+				  "g",
+				  "o",
+				  " ",
+				  "y",
+				  "m",
+				  "c",
+				  "q",
+				  "k",
+				  "v",
+				  "j",
+				  "e",
+	              "z"
+				];			
+
 	var numberList;
 	
 	function secretMessage()
@@ -81,14 +83,14 @@
 			}
 			else
 			{
-			decrypt();
+				document.getElementById("unencrypt").value = code1(false);
 			}
 		}
 		else
 		{
 			if (document.getElementById("encrypt").value =="") 
 			{
-				encrypt();
+				document.getElementById("encrypt").value = code1(true);
 			}
 			else
 			{
@@ -98,68 +100,63 @@
 		//compound if statement is when both conditions are in one line.
 	}
 	
-	function decrypt()
+	function code1(amIencrypting)
 	{
-		var boxyBox = document.getElementById("encrypt").value;
-		numberList = new Array(boxyBox.length)
-		var counter = 0;
-		while( counter < boxyBox.length ) 
+		var firstList;
+		var secondList;
+		var boxyBox;
+		
+		if(amIencrypting == true)
 		{
-			var letter = boxyBox.substr(counter,1);
-			var letIndex = scrambled.indexOf(letter);
-			numberList[counter] = letIndex;
-			counter++;
+			firstList = alpha;
+			secondList = scrambled;
+			boxyBox = document.getElementById("unencrypt").value;
 		}
-			
-		var counter = 0;
-		var answer = "";
-		while(counter < boxyBox.length)
+		
+		
+		else
 		{
-			var letIndex = numberList[counter];
-			answer = answer + alpha[letIndex]
-			counter++;
+			firstList = scrambled;
+			secondList = alpha;
+			boxyBox = document.getElementById("encrypt").value;
 		}
-		document.getElementById("unencrypt").value = answer
-	}
-	function encrypt()
-	{
-		var boxyBox = document.getElementById("unencrypt").value;
-		numberList = new Array(boxyBox.length)
-		var counter = 0;
-		while( counter < boxyBox.length )
-		{
-			var letter = boxyBox.substr(counter,1);
-			var letIndex = alpha.indexOf(letter);
-			numberList[counter] = letIndex;
-			counter++;
-		}
-			
-		var counter = 0;
-		var answer = "";
-		while(counter < boxyBox.length)
-		{
-			var letIndex = numberList[counter];
-						
-			answer = answer + scramble[letIndex];
-			
-			counter++;
-		}
-		document.getElementById("encrypt").value = answer
-	}
 	
+		numberList = new Array(boxyBox.length)
+		
+		var counter = 0;
+		while(counter < boxyBox.length)
+		{
+			var let = boxyBox.substr(counter,1)
+			var letIndex = firstList.indexOf(let);
+			numberList[counter] = letIndex;
+			counter++;
+		}
+		var counter = 0;
+		var answer = "";
+		
+		while(counter < boxyBox.length)
+		{
+			var numListValue = numberList[counter];
+			answer = answer + secondList[numListValue];
+			
+			counter++;
+		}
+		
+		return answer;
+		
+	}
 	function clearBoxes()
 	{
-		document.getElementById("unencrypt").value ="";
-		document.getElementById("encrypt").value ="";
-		//alert("Clearing")
+		document.getElementById("unencrypt").value = "";
+		document.getElementById("encrypt").value = "";
 	}
 	
 	
 	</script>
 </head>
-<body background="images/chicky.png">
+<body>
 	<center>
-		<h1>Naor's Encryption App</h1>
+		<h1>My Encryption App</h1>
 		<br/><br/>
 		<input type ="button" value="Encrypt" onClick="secretMessage()"/>
 		<input type ="button" value="Clear" onClick="clearBoxes()"/>
@@ -171,9 +168,6 @@
 		<br/><br/>
 		Encrypted Message
 		<input type = "text" size="40" id="encrypt"/> 
-		<br/>
-		<br/>
-		<h2>Click Here to <a href="index.html"> Go To The Index</a></h2>
 	</center>
 </body>
 </html>

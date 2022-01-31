@@ -1,0 +1,75 @@
+<html>
+<head>
+<script language="javaScript">
+
+var counter = 0; // Global Variable. Access throughout this script.
+var timer;
+var startTimer = false;
+
+var bandMates =["John ", "Paul ", "George ", "Ringo ", "Tom"];
+
+var myData=[1,2,3,4,5,6,7,8,9,10]
+
+
+function oneTime()
+{
+	var score = 1; // local variable. Access only inside this function.
+	score = score + 1;
+	
+	document.getElementById("names").value =(bandMates[counter]);
+	increment();
+} // Variable score is freed up. Doesn't save its information after this point.
+
+function run()
+{
+	if(startTimer == false) // timer isn't running.
+	{
+		startTimer = true
+	}
+	else
+	{
+		startTimer = false
+	}
+	autoDisplay();
+}
+function autoDisplay()
+{
+	if( startTimer == true )
+	{
+	document.getElementById("names").value = bandMates[counter];
+	increment();
+	timer = setTimeout("autoDisplay()", 1000);
+	}
+	else
+	{
+	clearTimeout(timer);
+	}
+}
+function increment()
+{
+	if( counter == bandMates.length-1) // counter us the last element.
+	{ 
+		counter = 0;
+	}
+	else
+	{
+		counter = counter + 1;  //counter ++;
+	}
+
+}
+</script>
+</head>
+<body background="images/bkg2.gif">
+<center>
+<h1> Fun with Arrays</h1>
+<input type="button" value="The Beatles and Tom!" onclick="oneTime()"/>
+<br/>
+<hr/>
+<input type="button" value="Run" onclick="run()"/>
+<br/><br/>
+
+<input size=30 id="names" onclick="run()"/>
+</center>
+<br/><br/>
+</body>
+</html>
