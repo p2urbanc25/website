@@ -1,0 +1,136 @@
+<html>
+<head>
+<script language="javaScript">
+
+var myList;
+function begin()
+{
+ 	var j = prompt("How big a list should I make?");
+	j = parseInt(j);
+	myList = new Array(j);
+	for(var i = 0; i< myList.length; i++)
+	{
+		myList[i] = Math.floor(Math.random()*j);
+	}
+
+	sorting();
+}
+
+function sorting()
+{
+	for(var i = 0; i< myList.length-1; i++)
+	{
+		var minIndex = i;
+		for(var j = i+1; j<myList.length; j++)
+		{
+			if( myList[j]<myList[minIndex])
+			{
+				minIndex = j;
+			}
+		}
+		var temp = myList[i];
+		myList[i] = myList[minIndex];
+		myList[minIndex]= temp;
+
+	}
+	elimDuplicates();
+}
+
+
+function elimDuplicates(t)
+{
+	for(i=0; i<myList.length; i++)
+	{
+		if(myList[i] == myList[i+1])
+		{
+			myList.splice(i,1);
+			i--;
+		}
+	}
+	displayList();
+}
+
+function displayList()
+{
+	var answer = "";
+	for(var i = 0; i<myList.length-1; i++)
+	{
+		answer += myList[i];
+		answer+= ", ";
+	}
+	answer += myList[myList.length-1];
+	document.getElementById("listOnums").value = answer;
+}
+
+function linearSearch()
+{
+	var foundIndex = -1;
+	var number = prompt("Which Number Do You Want To Find?");
+	number = parseInt(number);
+	alert(number)
+
+	for(var counter = 0; myList[counter]; counter++)
+	{
+		if(myList[counter] == number)
+		{
+		foundIndex = counter;
+		counter = myList.length;
+		}
+	}
+
+	
+	if(foundIndex == -1)
+	{
+	alert( number + " is not in this list")
+	}
+	else 
+	{
+		alert( number + " is at position" + foundIndex)
+	}
+	
+}
+
+
+function binSearch()
+{
+	
+	var target = prompt("What number should I find?");
+	var counter = 0;
+	var lo = 0; 
+	var hi=myList.length-1; 
+	var mid = Math.floor((lo+hi)/2);
+	while(lo<=hi && myList[mid] != target)
+	{
+		counter++;
+		if(myList[mid] < target)
+			lo = mid+1;
+		else 
+			hi = mid-1;
+		mid = Math.floor((lo+hi)/2);
+	}
+		
+	if( lo > hi)
+		alert("Target not in list.");
+	else 
+		alert("Target is at index "+mid+".");
+		alert("It took " + counter + " times through the loop.");
+	
+	
+}
+
+
+</script>
+</head>
+<body onload = "begin()">
+<h1> Binary Search! </h1>
+
+<center>
+
+<input id="listOnums" type="text" size = 40/>
+<br/>
+<input type = "button" value = "Start Linear Search!" onclick="linearSearch()"/>
+<input type = "button" value = "Start Binary Search!" onclick="binSearch()"/>
+</center>
+
+</body>
+</html>
